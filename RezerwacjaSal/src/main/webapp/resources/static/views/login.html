@@ -1,0 +1,18 @@
+<div ng-controller="LoginController">
+<form ng-submit="login()">
+	<div ng-show="error">
+		There was a problem logging in. Please try again.
+	</div>
+	<table>
+		<tr>
+			<td>Login:</td>
+			<td><input type="text" ng-model="credentials.username" required></td>
+		</tr>
+		<tr>
+			<td>Haslo:</td>
+			<td><input type="password" ng-model="credentials.password" required></td>
+		</tr>
+		<tr><td><button type="submit">Zaloguj</button></td></tr>
+	</table>
+</form>
+</div>

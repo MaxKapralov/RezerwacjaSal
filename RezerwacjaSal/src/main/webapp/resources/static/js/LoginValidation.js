@@ -1,6 +1,5 @@
 angular.module('app').directive("isUniq", function($http){
 	return{
-		
 		restrict: 'A',
 		require: 'ngModel',
 		link: function(scope, element, attr, ctrl)

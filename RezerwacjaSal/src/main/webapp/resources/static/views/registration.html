@@ -1,5 +1,5 @@
 <div>
-	<form name="registrationForm" ng-controller="RegistrationFormController">
+	<form name="registrationForm" ng-controller="RegistrationFormController" ng-submit="registration()">
 		<table>
 			<tr>
 				<td>Imie:</td> 
@@ -80,7 +80,7 @@
 				<td><input type="date" ng-model="userBirthday" required></td>
 			</tr>
 			<tr>
-				<td><button ng-click="registration()" ng-disabled="registrationForm.$invalid">Rejestracja</button></td>
+				<td><button type="submit" ng-disabled="registrationForm.$invalid">Rejestracja</button></td>
 			</tr>
 		</table>
 	</form>

@@ -19,6 +19,14 @@ app.config(function($routeProvider, $locationProvider, $httpProvider){
         	templateUrl:"resources/static/views/adminHome.html",
         	controller: "AdminController"
         })
+        .when('/admin/addRoom',{
+        	templateUrl: "resources/static/views/addRoom.html",
+        	controller: "AddRoomController"
+        })
+        .when('/admin/userList',{
+        	templateUrl: "resources/static/views/userList.html",
+        	controller: "UserListController"
+        })
         .otherwise(
             { redirectTo: '/'}
         );

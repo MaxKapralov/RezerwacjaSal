@@ -1,0 +1,38 @@
+<div ng-controller="AddRoomController">
+	<div ng-show="success">Dodano sale!</div>
+	<form name="newRoomForm"  ng-submit="addRoom()">
+	<table>
+		<tr>
+			<td>Lokalizacja:</td>
+			<td><input type="text" name="location" ng-model="room.location" valid-location required></td>
+			<td>
+				<div ng-messages="newRoomForm.location.$error" ng-if="newRoomForm.location.$touched">
+					<p ng-message="required">Lokalizacja jest polem obowiazkowym.</p>
+					<p ng-message="uniqLocation">Sala z taka lokalizacja juz istnieje</p>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Potwierdzenie:
+			</td>
+			<td>
+				<select ng-model="room.permission" name="premission" required>
+					<option value="true">Tak</option>
+					<option value="false">Nie</option>
+				</select>
+			</td>
+			<td>
+				<div ng-messages="newRoomForm.permission.$error" ng-if="newRoomForm.permission.$touched">
+					<p ng-message="required">Potwierdzenie jest polem obowiazkowym</p>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button type="submit" ng-disabled="newRoomForm.$invalid">Dodaj</button>
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>

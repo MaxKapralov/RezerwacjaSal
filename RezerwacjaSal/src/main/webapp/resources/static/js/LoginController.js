@@ -10,18 +10,16 @@ app.controller("LoginController", function($scope, $http, $location, $rootScope)
 							if(response.name)
 							{
 								$rootScope.authenticated = true;
-								$rootScope.username = response.name;
+								username = response.name;
 								console.log("Data success ");
 								$rootScope.authority = response.authorities[0]["authority"];
 							}
 							else
 							{
 								$rootScope.authenticated = false;
-								console.log("Data error " + response);
 							}
 							callback && callback();
 						}).error(function(){
-							console.log("Error");
 							$rootScope.authenticated = false;
 							callback && callback();
 						});
@@ -52,16 +50,7 @@ app.controller("LoginController", function($scope, $http, $location, $rootScope)
 						$scope.error = true;
 					}
 				});
-				
-				/*$http({
-					url: "/ISRSK2/getUserWithLogin",
-					method: "GET",
-					params: {username: $scope.credentials.username}
-				}).success(function(response){
-					console.log("Success " + response);
-				}).error(function(response){
-					console.log("Error " + response);
-				});*/
+
 			};
 
 		});

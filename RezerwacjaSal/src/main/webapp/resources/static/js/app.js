@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ngRoute','ngResource', 'ngMessages']);
 app.constant("baseUrl", "http://localhost:8080/RezerwacjaSal");
-
+var username;
 app.config(function($routeProvider, $locationProvider, $httpProvider){
     $routeProvider
         .when('/', {
@@ -17,12 +17,12 @@ app.config(function($routeProvider, $locationProvider, $httpProvider){
         })
         .when('/admin/home', {
         	templateUrl:"resources/static/views/adminHome.html",
-        	controller: "AdminHomeController"
+        	controller: "AdminController"
         })
         .otherwise(
             { redirectTo: '/'}
         );
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     //$locationProvider.html5Mode(true);
-
 });
+

@@ -50,5 +50,13 @@ public class MyRestController {
     	return "false";
     }
 	
+	@RequestMapping(value = "/curUser", method = RequestMethod.GET)
+	public ResponseEntity<UserInfo> getUser(@RequestParam("login") String login)
+	{
+		User user = userRepo.findByLogin(login);
+		UserInfo result = userInfo.findById(user.getId());
+		return new ResponseEntity<UserInfo>(result, HttpStatus.OK);
+	}
+	
 	
 }

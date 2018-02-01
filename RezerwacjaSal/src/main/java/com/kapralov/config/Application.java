@@ -18,6 +18,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -56,16 +57,15 @@ public class Application extends SpringBootServletInitializer{
 	        .httpBasic()
 	      .and()
 	        .authorizeRequests()
-	          .antMatchers("/", "/login", "/registration", "/loginIsUniq**").permitAll()
-	          .anyRequest().authenticated()
-	      .and().csrf().csrfTokenRepository(csrfTokenRepository()).requireCsrfProtectionMatcher(csrfProtectionMatcher(new String[]{"/user", "/login", "/", "/registration", "/logUser", "/loginIsUniq**"}));
+	        	.antMatchers("/admin/**").hasRole("ADMIN")
+	        	.antMatchers("/user/**").hasRole("USER")
+	        	.antMatchers("/", "/login", "/registration", "/loginIsUniq**").permitAll()
+	        	.anyRequest().authenticated()
+	      .and().logout()
+	      .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).requireCsrfProtectionMatcher(csrfProtectionMatcher(new String[]{"/user", "/login", "/", "/registration", "/logUser", "/loginIsUniq**"}))
+	      .and()
+	  		.exceptionHandling().accessDeniedPage("/");
 	    }
-	    
-	    private CsrfTokenRepository csrfTokenRepository() {
-	    	  HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-	    	  repository.setHeaderName("X-XSRF-TOKEN");
-	    	  return repository;
-	    	}
 	    
 	    private NoAntPathRequestMatcher csrfProtectionMatcher(String[] patterns) {
 	        return new NoAntPathRequestMatcher(patterns);

@@ -8,4 +8,5 @@ app.controller("HomeSectionController", function($scope, $location)
 			{
 				$location.path("/registration");
 			}
+			
 		});

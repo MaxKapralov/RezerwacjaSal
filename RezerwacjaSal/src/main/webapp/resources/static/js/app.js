@@ -27,6 +27,10 @@ app.config(function($routeProvider, $locationProvider, $httpProvider){
         	templateUrl: "resources/static/views/userList.html",
         	controller: "UserListController"
         })
+        .when("/admin/addNewUser",{
+        	templateUrl: "resources/static/views/adminAddNewUser.html",
+        	controller: "AdminAddNewUserController"
+        })
         .otherwise(
             { redirectTo: '/'}
         );

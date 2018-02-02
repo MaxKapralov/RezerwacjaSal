@@ -1,6 +1,5 @@
-app.controller("RegistrationFormController", function($scope, $filter, User, $location)
+app.controller("AdminAddNewUserController", function($scope, $filter, User, $location)
 		{
-			$scope.userRole = false;
 			$scope.registration = function()
 			{
 				var newUser = {
@@ -11,17 +10,17 @@ app.controller("RegistrationFormController", function($scope, $filter, User, $lo
 						passAgain: $scope.passwordAgain,
 						email: $scope.userEmail,
 						birthday: $filter("date")($scope.userBirthday),
-						role: "ROLE_USER"
+						role: $scope.role
 						};
 				console.log(newUser);
 				User.save(newUser, function()
 				{
 					console.log("User saved");
-					$location.path("/login");
+					$location.path("/admin/home");
 				}, function()
 				{
 					console.log("User could not be saved");
-					$location.path("/registration");
+					$location.path("/admin/addNewUser");
 				})
 			}
 			

@@ -22,6 +22,7 @@ import com.kapralov.model.data.NewUserForm;
 import com.kapralov.model.data.User;
 import com.kapralov.model.data.UserInfo;
 import com.kapralov.model.repository.NewRoomRepository;
+import com.kapralov.model.repository.RoomBookRepository;
 import com.kapralov.model.repository.UserInfoRepository;
 import com.kapralov.model.repository.UserRepository;
 
@@ -31,6 +32,7 @@ public class MyRestController {
 	@Autowired UserRepository userRepo;
 	@Autowired UserInfoRepository userInfo;
 	@Autowired NewRoomRepository newRoomRep;
+	@Autowired RoomBookRepository roomBookRep;
 	
 	
 	@RequestMapping(value="/user", method = RequestMethod.POST)
@@ -82,6 +84,22 @@ public class MyRestController {
 	{
 		Iterable<UserInfo> list = userInfo.findAll();
 		return new ResponseEntity<Iterable<UserInfo>>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/getAllRooms", method = RequestMethod.GET)
+	public ResponseEntity<Iterable<NewRoom>> getAllRooms()
+	{
+		Iterable<NewRoom> rooms = newRoomRep.findAll();
+		return new ResponseEntity<Iterable<NewRoom>>(rooms, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/delRoomWithId", method = RequestMethod.POST)
+	public ResponseEntity<Void> delRoom(@RequestParam("id")Long id)
+	{
+		roomBookRep.deleteByIdRoom(id);
+		newRoomRep.delete(id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+		
 	}
 	
 	

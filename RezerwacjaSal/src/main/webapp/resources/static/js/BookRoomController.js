@@ -37,7 +37,7 @@ app.controller("BookRoomController", function($scope, $http, $filter, $rootScope
 		$http({
 			url: "bookRoom",
 			method: "POST",
-			params: {idRoom : id, time: time, username: username, date: $filter("date")(date)},
+			params: {idRoom : id, time: time, username: $rootScope.username, date: $filter("date")(date)},
 			data: room.aim,
 			headers: {"Content_type" : "text/plain"}
 		}).success(function(response)

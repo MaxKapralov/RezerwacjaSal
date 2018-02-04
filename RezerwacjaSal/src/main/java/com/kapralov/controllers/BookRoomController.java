@@ -84,7 +84,7 @@ public class BookRoomController {
 		if(!room.getPermission() || info.getRole().equals("ROLE_ADMIN"))
 		{
 			roomBookRep.save(new RoomBook(idRoom, user.getId(), date, dateTo, aim, "OK"));
-			message.setText("Twoja rezerwacja sali "+ room.getLocation() + " w godzinach " + date + " - " + dateTo + " zostala przyjeta.");
+			message.setText("Twoja rezerwacja sali "+ room.getLocation() + " w godzinach " + date + " - " + dateTo + " zostala zaakceptowana.");
 		}
 		else
 		{

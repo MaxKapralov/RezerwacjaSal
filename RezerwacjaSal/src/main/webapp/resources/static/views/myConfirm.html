@@ -1,0 +1,22 @@
+<div ng-controller="ConfirmController">
+	<p ng-show="accepted">Zaakceptowano</p>
+	<p ng-show="blocked">Odrzucono</p>
+	<table>
+		<tr>
+			<td>Id Sali</td>
+			<td>Id Uzytkownika</td>
+			<td>Od</td>
+			<td>Do</td>
+			<td>Cel</td>
+		</tr>
+		<tr ng-repeat="room in rooms">
+			<td>{{room.idRoom}}</td>
+			<td>{{room.idUser}}</td>
+			<td>{{room.busyFrom | date : "medium"}}</td>
+			<td>{{room.busyTo | date : "medium"}}</td>
+			<td>{{room.aim}}</td>
+			<td><button ng-click="accept(room.id, room.idUser)">Zaakceptowac</button></td>
+			<td><button ng-click="block(room.id, room.idUser)">Odrzuc</button></td>
+		</tr>
+	</table>
+</div>

@@ -10,7 +10,7 @@ app.controller("LoginController", function($scope, $http, $location, $rootScope)
 							if(response.name)
 							{
 								$rootScope.authenticated = true;
-								username = response.name;
+								$rootScope.username = response.name;
 								console.log("Data success ");
 								$rootScope.authority = response.authorities[0]["authority"];
 							}
@@ -32,15 +32,14 @@ app.controller("LoginController", function($scope, $http, $location, $rootScope)
 				authenticate($scope.credentials, function(){
 					if($rootScope.authenticated)
 					{
-						if($rootScope.authority = "ROLE_ADMIN")
+						
+						if($rootScope.authority == "ROLE_ADMIN")
 						{
 							$location.path("/admin/home");
-							$rootScope.authority = "";
 						}
-						else if($rootScope.authority = "ROLE_USER")
+						else if($rootScope.authority == "ROLE_USER")
 						{
 							$location.path("/user/home");
-							$rootScope.authority = "";
 						}
 						$scope.error = false;
 					}

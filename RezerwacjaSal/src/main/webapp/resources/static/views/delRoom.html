@@ -2,10 +2,12 @@
 	<p ng-show="deleted">Usunieto Sale</p>
 	<table>
 		<tr>
+			<td>Id</td>
 			<td>Lokalizacja</td>
 			<td>Potwierdzenie</td>
 		</tr>
 		<tr ng-repeat="room in rooms">
+			<td>{{room.id}}</td>
 			<td>{{room.location}}</td>
 			<td>{{room.permission}}</td>
 			<td><button ng-click="del(room.id)">Usun</button></td>

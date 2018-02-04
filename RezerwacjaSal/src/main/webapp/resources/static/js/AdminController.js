@@ -6,7 +6,7 @@ app.controller("AdminController", function($scope, $rootScope, $location, $http)
 	{
 		$http({
 			url: "curUser",
-			params: {login : username},
+			params: {login : $rootScope.username},
 			method: "GET"
 		}).success(function(response){
 			console.log(response);

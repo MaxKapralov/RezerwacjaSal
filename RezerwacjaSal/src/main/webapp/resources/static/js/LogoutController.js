@@ -4,11 +4,11 @@ app.controller("LogoutController", function($scope, $http, $location, $rootScope
 	{
 		$http.post("logout").success(function(){
     		$rootScope.authenticated = false;
-    		username = undefined;
+    		$rootScope.username = undefined;
     		$location.path("/");
     	}).error(function(){
     		$rootScope.authenticated = false;
-    		username = undefined;
+    		$rootScope.username = undefined;
     	});
 	}
 });

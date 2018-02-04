@@ -57,8 +57,6 @@ public class Application extends SpringBootServletInitializer{
 	        .httpBasic()
 	      .and()
 	        .authorizeRequests()
-	        	.antMatchers("/admin/**").hasRole("ADMIN")
-	        	.antMatchers("/user/**").hasRole("USER")
 	        	.antMatchers("/", "/login", "/registration", "/loginIsUniq**").permitAll()
 	        	.anyRequest().authenticated()
 	      .and().logout()

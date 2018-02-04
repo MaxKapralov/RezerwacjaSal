@@ -1,4 +1,4 @@
-app.controller("DelRoomController", function($scope, $http){
+app.controller("DelRoomController", function($scope, $http, Logout){
 	
 	getAllRooms();
 	$scope.deleted = false;
@@ -20,6 +20,11 @@ app.controller("DelRoomController", function($scope, $http){
 		}).success(function(){
 			$scope.deleted = true;
 		})
+	}
+	
+	$scope.logout = function()
+	{
+		Logout.go();
 	}
 	
 });

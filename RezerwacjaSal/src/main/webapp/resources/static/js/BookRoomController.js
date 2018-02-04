@@ -1,4 +1,4 @@
-app.controller("BookRoomController", function($scope, $http, $filter, $rootScope){
+app.controller("BookRoomController", function($scope, $http, $filter, $rootScope, Auth, Logout){
 	$scope.visibleHours = false;
 	getAllRooms();
 	
@@ -37,7 +37,7 @@ app.controller("BookRoomController", function($scope, $http, $filter, $rootScope
 		$http({
 			url: "bookRoom",
 			method: "POST",
-			params: {idRoom : id, time: time, username: $rootScope.username, date: $filter("date")(date)},
+			params: {idRoom : id, time: time, username: Auth.getUserName(), date: $filter("date")(date)},
 			data: room.aim,
 			headers: {"Content_type" : "text/plain"}
 		}).success(function(response)
@@ -46,6 +46,11 @@ app.controller("BookRoomController", function($scope, $http, $filter, $rootScope
 			$scope.success = true;
 		});
 		
+	}
+	
+	$scope.logout = function()
+	{
+		Logout.go();
 	}
 	
 })

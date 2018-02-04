@@ -1,4 +1,4 @@
-app.controller("AddRoomController", function($scope, $http, $location)
+app.controller("AddRoomController", function($scope, $http, $location, Logout)
 {
 	$scope.addRoom = function()
 	{
@@ -11,5 +11,9 @@ app.controller("AddRoomController", function($scope, $http, $location)
 			$scope.room.location = "";
 			$location.path("/admin/addRoom");
 		});
+	}
+	$scope.logout = function()
+	{
+		Logout.go();
 	}
 });

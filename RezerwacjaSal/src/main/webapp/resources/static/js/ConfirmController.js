@@ -1,4 +1,4 @@
-app.controller("ConfirmController", function($scope, $http, $location){
+app.controller("ConfirmController", function($scope, $http, $location, Logout){
 	
 	getRooms();
 	
@@ -35,5 +35,10 @@ app.controller("ConfirmController", function($scope, $http, $location){
 			$location.path("/admin/myConfirm");
 			$scope.blocked = true;
 		});
+	}
+	
+	$scope.logout = function()
+	{
+		Logout.go();
 	}
 });

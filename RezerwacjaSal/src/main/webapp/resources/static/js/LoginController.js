@@ -1,4 +1,4 @@
-app.controller("LoginController", function($scope, $http, $location, $rootScope)
+app.controller("LoginController", function($scope, $http, $location, $rootScope, Auth)
 		{
 			var authenticate = function(credentials, callback)
 			{
@@ -9,18 +9,13 @@ app.controller("LoginController", function($scope, $http, $location, $rootScope)
 						{
 							if(response.name)
 							{
-								$rootScope.authenticated = true;
-								$rootScope.username = response.name;
-								console.log("Data success ");
-								$rootScope.authority = response.authorities[0]["authority"];
+								Auth.setUserName(response.name);
+								Auth.setAuthority(response.authorities[0]["authority"]);
+								console.log(Auth.getAuthority());
 							}
-							else
-							{
-								$rootScope.authenticated = false;
-							}
+							
 							callback && callback();
 						}).error(function(){
-							$rootScope.authenticated = false;
 							callback && callback();
 						});
 			}
@@ -30,18 +25,19 @@ app.controller("LoginController", function($scope, $http, $location, $rootScope)
 			$scope.login = function()
 			{
 				authenticate($scope.credentials, function(){
-					if($rootScope.authenticated)
+					if(Auth.isLoggedIn())
 					{
 						
-						if($rootScope.authority == "ROLE_ADMIN")
+						if(Auth.getAuthority() == "ROLE_ADMIN")
 						{
 							$location.path("/admin/home");
 						}
-						else if($rootScope.authority == "ROLE_USER")
+						else if(Auth.getAuthority() == "ROLE_USER")
 						{
 							$location.path("/user/home");
 						}
 						$scope.error = false;
+						authenticated = true;
 					}
 					else
 					{	

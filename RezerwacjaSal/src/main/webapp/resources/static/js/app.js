@@ -1,7 +1,6 @@
 var app = angular.module('app', ['ngRoute','ngResource', 'ngMessages']);
 app.constant("baseUrl", "http://localhost:8080/RezerwacjaSal");
-var username;
-var authority;
+var authenticated;
 
 app.config(function($routeProvider, $locationProvider, $httpProvider){
     $routeProvider

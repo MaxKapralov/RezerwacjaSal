@@ -1,4 +1,4 @@
-app.controller("AdminAddNewUserController", function($scope, $filter, User, $location)
+app.controller("AdminAddNewUserController", function($scope, $filter, User, $location, Logout)
 		{
 			$scope.registration = function()
 			{
@@ -22,6 +22,11 @@ app.controller("AdminAddNewUserController", function($scope, $filter, User, $loc
 					console.log("User could not be saved");
 					$location.path("/admin/addNewUser");
 				})
+			}
+			
+			$scope.logout = function()
+			{
+				Logout.go();
 			}
 			
 		});

@@ -1,4 +1,4 @@
-app.controller("UserListController", function($scope, $http)
+app.controller("UserListController", function($scope, $http, Logout)
 {
 	getList();
 	
@@ -11,5 +11,10 @@ app.controller("UserListController", function($scope, $http)
 			$scope.users = response;
 			console.log(response);
 		})
+	}
+	
+	$scope.logout = function()
+	{
+		Logout.go();
 	}
 })

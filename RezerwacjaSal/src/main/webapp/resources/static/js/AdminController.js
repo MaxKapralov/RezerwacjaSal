@@ -1,4 +1,4 @@
-app.controller("AdminController", function($scope, $rootScope, $location, $http){
+app.controller("AdminController", function($scope, $rootScope, $location, $http, Auth, Logout){
 	
 	getCurlUser();
 	var id;
@@ -6,7 +6,7 @@ app.controller("AdminController", function($scope, $rootScope, $location, $http)
 	{
 		$http({
 			url: "curUser",
-			params: {login : $rootScope.username},
+			params: {login : Auth.getUserName()},
 			method: "GET"
 		}).success(function(response){
 			console.log(response);
@@ -38,5 +38,9 @@ app.controller("AdminController", function($scope, $rootScope, $location, $http)
 	$scope.userList = function()
 	{
 		$location.path("/admin/userList");
+	}
+	$scope.logout = function()
+	{
+		Logout.go();
 	}
 });

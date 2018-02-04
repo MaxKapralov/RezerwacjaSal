@@ -54,4 +54,23 @@ app.config(function($routeProvider, $locationProvider, $httpProvider){
     //$locationProvider.html5Mode(true);
 });
 
+app.run(function($rootScope, $location, Auth){
+	$rootScope.$on('$routeChangeStart', function(event){
+		if(!Auth.isLoggedIn())
+		{
+			if($location.path() == "/login") return;
+			else if($location.path() == "/registration") return;
+			$location.path("/");
+		}
+		else
+		{
+			if($location.path().includes("/admin") && Auth.getAuthority() == "ROLE_USER")
+				$location.path("/user/home");
+			else if($location.path().includes("/user") && Auth.getAuthority() == "ROLE_ADMIN")
+				$location.path("/admin/home");
+		}
+		
+	});
+});
+
 

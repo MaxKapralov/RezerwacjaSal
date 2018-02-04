@@ -1,0 +1,13 @@
+<div ng-controller="BookRoomController">
+	<p ng-show="success">Zarezerwowano sale</p>
+	<table>
+		<tr ng-repeat="room in rooms">
+			<td>{{room.location}}</td>
+			<td>{{room.permission}}</td>
+			<td><input type="date" ng-change="getFreeHours(room.id, room)" ng-model="room.date"></td>
+			<td><select ng-model="room.chosenHour"><option ng-repeat="hour in room.hours" value="{{hour}}" required>{{hour}} - {{hour + 2}}</option></select></td>
+			<td><input type="text" ng-maxlength=250 ng-model="room.aim" required></td>
+			<td><button ng-click="bookRoom(room)">Zarezerwuj</button>
+		</tr>
+	</table>
+</div>

@@ -15,13 +15,13 @@ import com.kapralov.model.data.RoomBook;
 public interface RoomBookRepository extends CrudRepository<RoomBook, Long>{
 
 	
-	@Query("SELECT r FROM RoomBook r WHERE TO_DAYS(r.busyFrom)=TO_DAYS(:date)")
-	List<RoomBook> findWithDate(@Param("date") Date date);
+	@Query("SELECT r FROM RoomBook r WHERE ( TO_DAYS(r.busyFrom)=TO_DAYS(:date) AND r.idRoom = :id)")
+	List<RoomBook> findWithDate(@Param("date") Date date, @Param("id") Long id);
 	
 	@Modifying
 	@Transactional
 	@Query("DELETE FROM RoomBook r WHERE r.idRoom=:id")
 	void deleteByIdRoom(@Param("id")Long id);
 	
-	
+	RoomBook save(RoomBook book);
 }

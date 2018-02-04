@@ -51,7 +51,7 @@ public class NewRoom {
 		this.location = location;
 	}
 
-	public boolean isPermission() {
+	public boolean getPermission() {
 		return permission;
 	}
 

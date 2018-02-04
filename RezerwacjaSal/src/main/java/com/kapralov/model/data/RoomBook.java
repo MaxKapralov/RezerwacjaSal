@@ -1,9 +1,12 @@
 package com.kapralov.model.data;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -15,6 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class RoomBook {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(name = "id_room", nullable = false)
@@ -25,25 +29,25 @@ public class RoomBook {
 	
 	@Column(name = "busy_from", nullable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	private Timestamp busyFrom;
+	private Date busyFrom;
 
 	@Column(name = "busy_to", nullable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	private Timestamp busyTo;
+	private Date busyTo;
 	
-	@Size(min = 5, max = 255)
+	@Size(max = 255)
 	private String aim;
 	
 	private String status;
 	
 	public RoomBook() {}
 	
-	public RoomBook(Long idRoom, Long idUser, Timestamp busyFrom, Timestamp busyTo, String aim, String status)
+	public RoomBook(Long idRoom, Long idUser, Date busyFrom, Date busyTo, String aim, String status)
 	{
 		this.idRoom = idRoom;
 		this.idUser = idUser;
 		this.busyFrom = busyFrom;
-		this.busyTo = busyTo;
+		this.busyTo =  busyTo;
 		this.aim = aim;
 		this.status = status;
 	}
@@ -72,7 +76,7 @@ public class RoomBook {
 		this.idRoom = idRoom;
 	}
 
-	public Timestamp getBusyFrom() {
+	public Date getBusyFrom() {
 		return busyFrom;
 	}
 
@@ -80,7 +84,7 @@ public class RoomBook {
 		this.busyFrom = busyFrom;
 	}
 
-	public Timestamp getBusyTo() {
+	public Date getBusyTo() {
 		return busyTo;
 	}
 

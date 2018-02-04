@@ -35,6 +35,10 @@ app.config(function($routeProvider, $locationProvider, $httpProvider){
         	templateUrl: "resources/static/views/delRoom.html",
         	controller: "DelRoomController"
         })
+        .when("/admin/bookRoom",{
+        	templateUrl: "resources/static/views/bookRoom.html",
+        	controller: "BookRoomController"
+        })
         .otherwise(
             { redirectTo: '/'}
         );

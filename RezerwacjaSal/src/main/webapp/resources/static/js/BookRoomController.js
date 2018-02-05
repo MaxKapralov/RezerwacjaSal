@@ -1,4 +1,4 @@
-app.controller("BookRoomController", function($scope, $http, $filter, $rootScope, Auth, Logout, $location){
+app.controller("BookRoomController", function($scope, $http, $filter, $rootScope, $window, Auth, Logout, $location){
 	$scope.visibleHours = false;
 	getAllRooms();
 	
@@ -42,6 +42,12 @@ app.controller("BookRoomController", function($scope, $http, $filter, $rootScope
 			headers: {"Content_type" : "text/plain"}
 		}).success(function(response)
 		{
+			if(Auth.getAuthority() == "ROLE_ADMIN")
+				$location.path("/admin/bookRoom");
+			else
+			{
+				$location.path("/user/bookRoom");
+			}
 			console.log("Zarezerwowano!");
 			$scope.success = true;
 		});

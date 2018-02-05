@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import com.google.common.collect.ImmutableList;
+
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -61,13 +69,25 @@ public class Application extends SpringBootServletInitializer{
 	        	.anyRequest().authenticated()
 	      .and().logout()
 	      .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).requireCsrfProtectionMatcher(csrfProtectionMatcher(new String[]{"/user", "/login", "/", "/registration", "/logUser", "/loginIsUniq**"}))
-	      .and()
-	  		.exceptionHandling().accessDeniedPage("/");
+	      .and().cors();
 	    }
 	    
 	    private NoAntPathRequestMatcher csrfProtectionMatcher(String[] patterns) {
 	        return new NoAntPathRequestMatcher(patterns);
 	      }
+	    
+	    @Bean
+	    public CorsConfigurationSource corsConfigurationSource() {
+	        final CorsConfiguration configuration = new CorsConfiguration();
+	        configuration.setAllowedOrigins(ImmutableList.of("*"));
+	        configuration.setAllowedMethods(ImmutableList.of("HEAD",
+	                "GET", "POST", "PUT", "DELETE", "PATCH"));
+	        configuration.setAllowCredentials(true);
+	        configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));
+	        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	        source.registerCorsConfiguration("/**", configuration);
+	        return source;
+	    }
 	    
 	    @Override
 	    public void configure(WebSecurity web) throws Exception {

@@ -1,5 +1,10 @@
 app.controller("LoginController", function($scope, $http, $location, $rootScope, Auth)
 		{
+			$scope.registrationPage = function()
+			{
+				$location.path("/registration");
+			}
+			
 			var authenticate = function(credentials, callback)
 			{
 				var headers = credentials ? {authorization : "Basic " 

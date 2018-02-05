@@ -1,4 +1,4 @@
-<div ng-controller="DelRoomController">
+<div ng-controller="UserHomeController">
 	<nav class="navbar navbar-default">
   		<div class="container-fluid">
     		<div class="navbar-header">
@@ -13,21 +13,8 @@
 		</div>
 	</nav>
 	<div class="container">
-	<p ng-show="deleted" class="alert alert-success">Usunieto Sale</p>
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Lokalizacja</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="room in rooms">
-				<td>{{room.id}}</td>
-				<td>{{room.location}}</td>
-				<td><button class="btn btn-danger" ng-click="del(room.id)">Usun</button></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+	<h3>{{username}}</h3>
+	
+	<button class="btn btn-info" ng-click="book()">Zarezerwuj Sale</button>
+	</div>
 </div>

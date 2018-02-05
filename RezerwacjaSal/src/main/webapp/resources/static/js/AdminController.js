@@ -35,12 +35,14 @@ app.controller("AdminController", function($scope, $rootScope, $location, $http,
 	{
 		$location.path("/admin/addNewUser");
 	}
-	$scope.userList = function()
-	{
-		$location.path("/admin/userList");
-	}
+	
 	$scope.logout = function()
 	{
 		Logout.go();
+	}
+	
+	$scope.getList = function()
+	{
+		$location.path("/admin/list");
 	}
 });

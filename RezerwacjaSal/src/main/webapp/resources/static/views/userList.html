@@ -1,18 +1,36 @@
 <div ng-controller="UserListController">
-<button ng-click="logout()">Wyloguj</button>
-	<p>Users:</p>
-	<table>
-		<tr>
-			<td>Id</td>
-			<td>Imie</td>
-			<td>Nazwisko</td>
-			<td>Adres Email</td>
-		</tr>
-		<tr ng-repeat="user in users">
-			<td>{{user.id}}</td>
-			<td>{{user.name}}</td>
-			<td>{{user.surname}}</td>
-			<td>{{user.email}}</td>
-		</tr>
-	</table>
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+				<div class="navbar-brand">Internetowy System Rezerwacji Sal Konferencyjnych</div>
+			</div>
+			<div class="nav navbar-nav">
+				<button class="btn btn-default navbar-btn btn-sm" ng-click="mainPage()">Strona glowna</button>
+			</div>
+			<div class="nav navbar-nav navbar-right">
+				<button class="btn btn-danger navbar-btn btn-sm" ng-click="logout()">Wyloguj</button>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<p>Users:</p>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Imie</th>
+					<th>Nazwisko</th>
+					<th>Adres Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="user in users">
+					<td>{{user.id}}</td>
+					<td>{{user.name}}</td>
+					<td>{{user.surname}}</td>
+					<td>{{user.email}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

@@ -41,4 +41,9 @@ app.controller("ConfirmController", function($scope, $http, $location, Logout){
 	{
 		Logout.go();
 	}
+	
+	$scope.mainPage = function()
+	{
+		$location.path("/admin/home");
+	}
 });

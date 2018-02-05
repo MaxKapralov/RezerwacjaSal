@@ -1,101 +1,128 @@
-<div>
-	<button ng-click="logout()">Wyloguj</button>
-	<form name="registrationForm" ng-controller="AdminAddNewUserController" ng-submit="registration()">
-		<table>
-			<tr>
-				<td>Imie:</td> 
-				<td><input type="text" name="username" ng-model="userName" ng-minlength=3 ng-maxlength=20 required></td>
-				<td>
-					<div ng-messages="registrationForm.username.$error" ng-if="registrationForm.username.$touched">
-						<p ng-message="minlength">Imie musi miec co najmniej 3 znaki.</p>
-      					<p ng-message="maxlength">Imie musi miec co nawyzej 20 znakow.</p>
-      					<p ng-message="required">Imie jest polem obowiazkowym.</p>
+<div ng-controller="AdminAddNewUserController">
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+				<div class="navbar-brand">Internetowy System Rezerwacji Sal Konferencyjnych</div>
+			</div>
+			<div class="nav navbar-nav">
+				<button class="btn btn-default navbar-btn btn-sm" ng-click="mainPage()">Strona glowna</button>
+			</div>
+			<div class="nav navbar-nav navbar-right">
+				<button class="btn btn-danger navbar-btn btn-sm" ng-click="logout()">Wyloguj</button>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+	<div ng-show="added" class="alert alert-success">Zarejestrowano nowego uzytkownika</div>
+	<form  name="registrationForm"  ng-submit="registration()">
+				<div class="form-group row" ng-class="{'has-error': registrationForm.username.$touched && (registrationForm.username.$error.required || registrationForm.username.$error.minlength || registrationForm.username.$error.maxlength), 'has-success': registrationForm.username.$valid }">
+					<label for="name" class="col-sm-2 col-form-label">Imie</label>
+					<div class="col-xs-4">
+						<input id="name" class="form-control" type="text" name="username" ng-model="userName" ng-minlength=3 ng-maxlength=20 required>
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Nazwisko:</td> 
-				<td><input type="text" name="surname" ng-model="userSurname" ng-minlength=4 ng-maxlength=20 required></td>
-				<td>
-					<div ng-messages="registrationForm.surname.$error" ng-if="registrationForm.surname.$touched">
-						<p ng-message="minlength">Nazwisko musi miec co najmniej 4 znaki.</p>
-      					<p ng-message="maxlength">Nazwisko musi miec co nawyzej 20 znakow.</p>
-      					<p ng-message="required">Nazwisko jest polem obowiazkowym.</p>
+					<div class="col-sm-3">
+						<span ng-show="registrationForm.username.$error.minlength && registrationForm.username.$touched">Imie musi miec co najmniej 3 znaki.</span>
+      					<span ng-show="registrationForm.username.$error.maxlength && registrationForm.username.$touched">Imie musi miec co nawyzej 20 znakow.</span>
+      					<span ng-show="registrationForm.username.$error.required && registrationForm.username.$touched">Imie jest polem obowiazkowym.</span>
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Login:</td>
-				<td><input type="text" name="login" ng-model="userLogin" ng-minlength=4 ng-maxlength=20 is-uniq required></td>
-				<td>
-					<div ng-messages="registrationForm.login.$error" ng-if="registrationForm.login.$touched">
-						<p ng-message="minlength">Login musi miec co najmniej 4 znaki.</p>
-      					<p ng-message="maxlength">Login musi miec co nawyzej 20 znakow.</p>
-      					<p ng-message="required">Login jest polem obowiazkowym.</p>
-      					<p ng-message="uniqValidation">Uzytkownik z takim loginem juz istnieje.</p>
+				</div>
+				
+				<div class="form-group row" ng-class="{'has-error': registrationForm.surname.$touched && (registrationForm.surname.$error.required || registrationForm.surname.$error.minlength || registrationForm.surname.$error.maxlength), 'has-success': registrationForm.surname.$valid }">
+					<label for="surname" class="col-sm-2 col-form-label">Nazwisko</label>
+					<div class="col-xs-4">
+						<input class="form-control" type="text" id="surname" name="surname" ng-model="userSurname" ng-minlength=4 ng-maxlength=20 required>
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Haslo:</td>
-				<td><input type="password" name="password" ng-model="userPassword" secure-password="{{passwordAgain}}" ng-minlength=8 ng-maxlength=20 required></td>
-				<td>
-					<div ng-messages="registrationForm.password.$error" ng-if="registrationForm.password.$touched">
-						<p ng-message="minlength">Haslo musi miec co najmniej 8 znaki.</p>
-      					<p ng-message="maxlength">Haslo musi miec co nawyzej 20 znakow.</p>
-      					<p ng-message="required">Haslo jest polem obowiazkowym.</p>
-      					<p ng-message="upperCaseLetter">Haslo musi zawierac duza litere.</p>
-      					<p ng-message="lowerCaseLetter">Haslo musi zawierac mala litere.</p>
-      					<p ng-message="number">Haslo musi zawierac cyfre.</p>
-      					<p ng-message="specialCharacter">Haslo musi zawierac znak specjalny.</p>
+					<div class="col-sm-3">
+						<span ng-show="registrationForm.surname.$error.minlength && registrationForm.surname.$touched">Nazwisko musi miec co najmniej 4 znaki.</span>
+      					<span ng-show="registrationForm.surname.$error.maxlength && registrationForm.surname.$touched">Nazwisko musi miec co nawyzej 20 znakow.</span>
+      					<span ng-show="registrationForm.surname.$error.required && registrationForm.surname.$touched">Nazwisko jest polem obowiazkowym.</span>
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Powtorz haslo:</td>
-				<td><input type="password" ng-model="passwordAgain" name="passwordAgain" secure-password="{{userPassword}}" ng-minlength=8 ng-maxlength=20 required></td>
-				<td>
-					<div ng-messages="registrationForm.passwordAgain.$error" ng-if="registrationForm.passwordAgain.$touched">
-						<p ng-message="minlength">Haslo musi miec co najmniej 8 znaki.</p>
-      					<p ng-message="maxlength">Haslo musi miec co nawyzej 20 znakow.</p>
-      					<p ng-message="required">Haslo jest polem obowiazkowym.</p>
-      					<p ng-message="upperCaseLetter">Haslo musi zawierac duza litere.</p>
-      					<p ng-message="lowerCaseLetter">Haslo musi zawierac mala litere.</p>
-      					<p ng-message="number">Haslo musi zawierac cyfre.</p>
-      					<p ng-message="specialCharacter">Haslo musi zawierac znak specjalny.</p>
-      					<p ng-message="equals">Hasla sie nie zgadzaja</p>
+				</div>				
+			
+				<div class="form-group row" ng-class="{'has-error': registrationForm.login.$touched && (registrationForm.login.$error.required || registrationForm.login.$error.minlength || registrationForm.login.$error.maxlength || registrationForm.login.$error.uniqValidation), 'has-success': registrationForm.login.$valid }">
+					<label for="login" class="col-sm-2 col-form-label">Login</label>
+					<div class="col-xs-4">
+						<input id="login" class="form-control" type="text" name="login" ng-model="userLogin" ng-minlength=4 ng-maxlength=20 is-uniq required>
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Email:</td>
-				<td><input type="email" ng-model="userEmail" name="email" required></td>
-				<td>
-					<div ng-if="registrationForm.email.$touched">
-						<p ng-if="registrationForm.email.$invalid">Invalid email address.</p>
+					<div class="col-sm-3">
+						<span ng-show="registrationForm.login.$error.minlength && registrationForm.login.$touched">Login musi miec co najmniej 4 znaki.</span>
+      					<span ng-show="registrationForm.login.$error.maxlength && registrationForm.login.$touched">Login musi miec co nawyzej 20 znakow.</span>
+      					<span ng-show="registrationForm.login.$error.required && registrationForm.login.$touched">Login jest polem obowiazkowym.</span>
+      					<span ng-show="registrationForm.login.$error.uniqValidation && registrationForm.login.$touched">Uzytkownik z takim loginem juz istnieje.</span>
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Data urodzenia:</td>
-				<td><input type="date" ng-model="userBirthday" required></td>
-			</tr>
-			<tr>
-				<td>Rola:</td>
-				<td><select ng-model="role" name='role' required>
-						<option value="ROLE_ADMIN">Admin</option>
-						<option value="ROLE_USER">User</option>
-					</select>
-				</td>
-				<td>
-					<div ng-messages="registrationForm.role.$error" ng-if="registrationForm.role.$touched">
-						<p ng-message="required">Rola jest polem obowiazkowym.</p>
+				</div>
+
+				<div class="form-group row" ng-class="{'has-error': registrationForm.password.$touched && (registrationForm.password.$error.required || registrationForm.password.$error.minlength || registrationForm.password.$error.maxlength || registrationForm.password.$error.upperCaseLetter || registrationForm.password.$error.lowerCaseLetter || registrationForm.password.$error.number || registrationForm.password.$error.specialCharacter), 'has-success': registrationForm.password.$valid }">
+					<label for="pass" class="col-sm-2 col-form-label">Haslo</label>
+					<div class="col-xs-4">
+						<input id="pass" class="form-control" type="password" name="password" ng-model="userPassword" secure-password="{{passwordAgain}}" ng-minlength=8 ng-maxlength=20 required>
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<td><button type="submit" ng-disabled="registrationForm.$invalid">Rejestracja</button></td>
-			</tr>
-		</table>
+					<div class="col-sm-3">
+						<span ng-show="registrationForm.password.$error.minlength && registrationForm.password.$touched">Haslo musi miec co najmniej 8 znaki.</span>
+      					<span ng-show="registrationForm.password.$error.maxlength && registrationForm.password.$touched">Haslo musi miec co nawyzej 20 znakow.</span>
+      					<span ng-show="registrationForm.password.$error.required && registrationForm.password.$touched">Haslo jest polem obowiazkowym.</span>
+      					<span ng-show="registrationForm.password.$error.upperCaseLetter && registrationForm.password.$touched">Haslo musi zawierac duza litere.</span>
+      					<span ng-show="registrationForm.password.$error.lowerCaseLetter && registrationForm.password.$touched">Haslo musi zawierac mala litere.</span>
+      					<span ng-show="registrationForm.password.$error.number && registrationForm.password.$touched">Haslo musi zawierac cyfre.</span>
+      					<span ng-show="registrationForm.password.$error.specialCharacter && registrationForm.password.$touched">Haslo musi zawierac znak specjalny.</span>
+					</div>
+				</div>
+					
+				<div class="form-group row" ng-class="{'has-error': registrationForm.passwordAgain.$touched && (registrationForm.passwordAgain.$error.required || registrationForm.passwordAgain.$error.minlength || registrationForm.passwordAgain.$error.maxlength || registrationForm.passwordAgain.$error.upperCaseLetter || registrationForm.passwordAgain.$error.lowerCaseLetter || registrationForm.passwordAgain.$error.number || registrationForm.passwordAgain.$error.specialCharacter || registrationForm.passwordAgain.$error.equals), 'has-success': registrationForm.passwordAgain.$valid }">
+					<label for="passAgain" class="col-sm-2 col-form-label">Powtorz Haslo</label>
+					<div class="col-xs-4">
+						<input id="passAgain" class="form-control" type="password" ng-model="passwordAgain" name="passwordAgain" secure-password="{{userPassword}}" ng-minlength=8 ng-maxlength=20 required>
+					</div>
+					<div class="col-sm-3">
+						<span ng-show="registrationForm.passwordAgain.$error.minlength && registrationForm.passwordAgain.$touched">Haslo musi miec co najmniej 8 znaki.</span>
+      					<span ng-show="registrationForm.passwordAgain.$error.maxlength && registrationForm.passwordAgain.$touched">Haslo musi miec co nawyzej 20 znakow.</span>
+      					<span ng-show="registrationForm.passwordAgain.$error.required && registrationForm.passwordAgain.$touched">Haslo jest polem obowiazkowym.</span>
+      					<span ng-show="registrationForm.passwordAgain.$error.upperCaseLetter && registrationForm.passwordAgain.$touched">Haslo musi zawierac duza litere.</span>
+      					<span ng-show="registrationForm.passwordAgain.$error.lowerCaseLetter && registrationForm.passwordAgain.$touched">Haslo musi zawierac mala litere.</span>
+      					<span ng-show="registrationForm.passwordAgain.$error.number && registrationForm.passwordAgain.$touched">Haslo musi zawierac cyfre.</span>
+      					<span ng-show="registrationForm.passwordAgain.$error.specialCharacter && registrationForm.passwordAgain.$touched">Haslo musi zawierac znak specjalny.</span>
+      					<span ng-show="registrationForm.passwordAgain.$error.equals && registrationForm.passwordAgain.$touched">Hasla sie nie zgadzaja</span>
+					</div>
+				</div>
+	
+				<div class="form-group row" ng-class="{'has-error': registrationForm.email.$touched && registrationForm.email.$error.required , 'has-success': registrationForm.email.$valid }">
+					<label for="email" class="col-sm-2 col-form-label">Email</label>
+					<div class="col-xs-4">
+						<input id="email" class="form-control" type="email" ng-model="userEmail" name="email" required>
+					</div>
+					<div class="col-sm-3">
+						<span ng-show="registrationForm.email.$invalid && registrationForm.email.$touched">Invalid email address.</span>
+					</div>
+				</div>
+
+				<div class="form-group row" ng-class="{'has-error': registrationForm.date.$touched && registrationForm.date.$error.required , 'has-success': registrationForm.date.$valid }">
+					<label for="date" class="col-sm-2 col-form-label">Data urodzenia</label>
+					<div class="col-xs-4">
+						<input class="form-control" type="date" name="date" ng-model="userBirthday" required>
+					</div>
+					<div class="col-sm-3">
+						<span ng-show="registrationForm.date.$error.required && registrationForm.date.$touched">Data urodzenia jest polem obowiazkowym</span>
+					</div>
+				</div>
+
+				<div class="form-group row" ng-class="{'has-error': registrationForm.role.$touched && registrationForm.role.$error.required , 'has-success': registrationForm.role.$valid }">
+					<label for="inlineFormCustomSelect" class="col-sm-2 col-form-label">Rola</label>
+					<div class="col-xs-2">
+						<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" ng-model="role" name='role' required>
+							<option value="ROLE_ADMIN">Admin</option>
+							<option value="ROLE_USER">User</option>
+						</select>
+					</div>
+					<div class="col-sm-3">
+						<span ng-show="registrationForm.role.$error.required && registrationForm.role.$touched">Rola jest polem obowiazkowym.</span>
+					</div>
+				</div>
+				
+				<div class="form-group row">
+    				<div class="col-sm-10">
+						<button class="btn btn-primary" type="submit" ng-disabled="registrationForm.$invalid">Rejestracja</button>
+					</div>
+				</div>
 	</form>
+	</div>
 </div>

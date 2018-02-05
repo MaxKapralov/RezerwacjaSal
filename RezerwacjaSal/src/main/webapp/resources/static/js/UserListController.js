@@ -1,4 +1,4 @@
-app.controller("UserListController", function($scope, $http, Logout)
+app.controller("UserListController", function($scope, $http, Logout, $location)
 {
 	getList();
 	
@@ -10,11 +10,18 @@ app.controller("UserListController", function($scope, $http, Logout)
 		}).success(function(response){
 			$scope.users = response;
 			console.log(response);
-		})
+		});
+	}
+	
+	$scope.mainPage = function()
+	{
+		$location.path("/admin/home");
 	}
 	
 	$scope.logout = function()
 	{
 		Logout.go();
 	}
-})
+	
+	
+});

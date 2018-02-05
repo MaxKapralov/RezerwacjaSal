@@ -16,7 +16,8 @@ app.controller("AdminAddNewUserController", function($scope, $filter, User, $loc
 				User.save(newUser, function()
 				{
 					console.log("User saved");
-					$location.path("/admin/home");
+					$location.path("/admin/addNewUser");
+					$scope.added = true;
 				}, function()
 				{
 					console.log("User could not be saved");
@@ -29,4 +30,8 @@ app.controller("AdminAddNewUserController", function($scope, $filter, User, $loc
 				Logout.go();
 			}
 			
+			$scope.mainPage = function()
+			{
+				$location.path("/admin/home");
+			}
 		});

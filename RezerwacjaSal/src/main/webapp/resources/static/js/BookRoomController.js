@@ -1,4 +1,4 @@
-app.controller("BookRoomController", function($scope, $http, $filter, $rootScope, Auth, Logout){
+app.controller("BookRoomController", function($scope, $http, $filter, $rootScope, Auth, Logout, $location){
 	$scope.visibleHours = false;
 	getAllRooms();
 	
@@ -51,6 +51,16 @@ app.controller("BookRoomController", function($scope, $http, $filter, $rootScope
 	$scope.logout = function()
 	{
 		Logout.go();
+	}
+	
+	$scope.mainPage = function()
+	{
+		if(Auth.getAuthority() == "ROLE_ADMIN")
+			$location.path("/admin/home");
+		else
+		{
+			$location.path("/user/home");
+		}
 	}
 	
 })

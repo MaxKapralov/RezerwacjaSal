@@ -1,5 +1,5 @@
 app.factory('User', ['$resource', function($resource){
-	return $resource('http://localhost:8080/ISRSK2/user/:id');
+	return $resource('http://localhost:8080/RezerwacjaSal/user/:id');
 }]);
 
 app.factory("Auth",function(){

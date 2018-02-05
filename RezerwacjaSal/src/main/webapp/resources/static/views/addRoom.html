@@ -1,39 +1,52 @@
 <div ng-controller="AddRoomController">
-	<div ng-show="success">Dodano sale!</div>
-	<button ng-click="logout()">Wyloguj</button>
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+				<div class="navbar-brand">Internetowy System Rezerwacji Sal Konferencyjnych</div>
+			</div>
+			<div class="nav navbar-nav">
+				<button class="btn btn-default navbar-btn btn-sm" ng-click="mainPage()">Strona glowna</button>
+			</div>
+			<div class="nav navbar-nav navbar-right">
+				<button class="btn btn-danger navbar-btn btn-sm" ng-click="logout()">Wyloguj</button>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+	<div ng-show="success" class="alert alert-success">Dodano sale!</div>
 	<form name="newRoomForm"  ng-submit="addRoom()">
-	<table>
-		<tr>
-			<td>Lokalizacja:</td>
-			<td><input type="text" name="location" ng-model="room.location" valid-location required></td>
-			<td>
-				<div ng-messages="newRoomForm.location.$error" ng-if="newRoomForm.location.$touched">
-					<p ng-message="required">Lokalizacja jest polem obowiazkowym.</p>
-					<p ng-message="uniqLocation">Sala z taka lokalizacja juz istnieje</p>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Potwierdzenie:
-			</td>
-			<td>
-				<select ng-model="room.permission" name="premission" required>
+	
+		<div class="form-group row" ng-class="{'has-error': newRoomForm.location.$touched && (newRoomForm.location.$error.required || newRoomForm.location.$error.uniqLocation), 'has-success': newRoomForm.location.$valid }">
+			<label for="location" class="col-sm-2 col-form-label">Localizacja</label>
+			<div class="col-xs-4">
+				<input type="text" class="form-control" name="location" id="location" ng-model="room.location" valid-location required>
+			</div>
+			<div class="col-sm-3">
+						<span ng-show="newRoomForm.location.$error.required && newRoomForm.location.$touched">Lokalizacja jest polem obowiazkowym.</span>
+						<span ng-show="newRoomForm.location.$error.uniqLocation && newRoomForm.location.$touched">Sala z taka lokalizacja juz istnieje</span>
+			</div>
+		</div>
+
+		<div class="form-group row" ng-class="{'has-error': newRoomForm.permission.$error.required && newRoomForm.permission.$touched, 'has-success': newRoomForm.permission.$valid }">
+			<label for="inlineFormCustomSelect" class="col-sm-2 col-form-label">Potwierdzenie</label>
+			<div class="col-xs-2">
+				<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" ng-model="room.permission" name="permission" required>
 					<option value="true">Tak</option>
 					<option value="false">Nie</option>
 				</select>
-			</td>
-			<td>
-				<div ng-messages="newRoomForm.permission.$error" ng-if="newRoomForm.permission.$touched">
-					<p ng-message="required">Potwierdzenie jest polem obowiazkowym</p>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<button type="submit" ng-disabled="newRoomForm.$invalid">Dodaj</button>
-			</td>
-		</tr>
-	</table>
+			</div>
+			<div class="col-sm-3">
+				<span ng-show="newRoomForm.permission.$error.required && newRoomForm.permission.$touched">Potwierdzenie jest polem obowiazkowym.</span>
+			</div>
+		</div>
+		
+		<div class="form-group row">
+    		<div class="col-sm-10">
+				<button class="btn btn-primary" type="submit" ng-disabled="newRoomForm.$invalid">Dodaj</button>
+			</div>
+		</div>
 	</form>
+	
+	</div>
 </div>
+

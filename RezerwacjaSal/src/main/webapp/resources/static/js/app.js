@@ -4,10 +4,7 @@ var authenticated;
 
 app.config(function($routeProvider, $locationProvider, $httpProvider){
     $routeProvider
-        .when('/', {
-        	templateUrl: 'resources/static/views/home.html',
-        	controller: 'HomeSectionController'
-        })
+        .when('/', { redirectTo: '/login'})
         .when('/registration',{
         	templateUrl: 'resources/static/views/registration.html',
         	controller: 'RegistrationFormController'
@@ -24,7 +21,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider){
         	templateUrl: "resources/static/views/addRoom.html",
         	controller: "AddRoomController"
         })
-        .when('/admin/userList',{
+        .when("/admin/list",{
         	templateUrl: "resources/static/views/userList.html",
         	controller: "UserListController"
         })
@@ -45,10 +42,15 @@ app.config(function($routeProvider, $locationProvider, $httpProvider){
         	controller: "ConfirmController"
         })
         .when("/user/home", {
-        	templateUrl: "resources/static/views/userHome.html"
+        	templateUrl: "resources/static/views/userHome.html",
+        	controller: "UserHomeController"
+        })
+        .when("/user/bookRoom",{
+        	templateUrl: "resources/static/views/bookRoom.html",
+        	controller: "BookRoomController"
         })
         .otherwise(
-            { redirectTo: '/'}
+            { redirectTo: '/login'}
         );
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     //$locationProvider.html5Mode(true);

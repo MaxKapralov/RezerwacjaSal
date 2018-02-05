@@ -1,14 +1,39 @@
 <div ng-controller="BookRoomController">
-	<button ng-click="logout()">Wyloguj</button>
-	<p ng-show="success">Zarezerwowano sale</p>
-	<table>
-		<tr ng-repeat="room in rooms">
-			<td>{{room.location}}</td>
-			<td>{{room.permission}}</td>
-			<td><input type="date" ng-change="getFreeHours(room.id, room)" ng-model="room.date"></td>
-			<td><select ng-model="room.chosenHour"><option ng-repeat="hour in room.hours" value="{{hour}}" required>{{hour}} - {{hour + 2}}</option></select></td>
-			<td><input type="text" ng-maxlength=250 ng-model="room.aim" required></td>
-			<td><button ng-click="bookRoom(room)">Zarezerwuj</button>
-		</tr>
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+				<div class="navbar-brand">Internetowy System Rezerwacji Sal Konferencyjnych</div>
+			</div>
+			<div class="nav navbar-nav">
+				<button class="btn btn-default navbar-btn btn-sm" ng-click="mainPage()">Strona glowna</button>
+			</div>
+			<div class="nav navbar-nav navbar-right">
+				<button class="btn btn-danger navbar-btn btn-sm" ng-click="logout()">Wyloguj</button>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+	<p ng-show="success" class="alert alert-success">Zarezerwowano sale</p>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Lokalizacja</th>
+				<th>Potwierdzenie administratora</th>
+				<th>Data</th>
+				<th>Godzina</th>
+				<th>Cel</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="room in rooms">
+				<td>{{room.location}}</td>
+				<td ng-if="room.permission">Tak</td><td ng-if="!room.permission">Nie</td>
+				<td><input type="date" ng-change="getFreeHours(room.id, room)" ng-model="room.date"></td>
+				<td><select ng-model="room.chosenHour"><option ng-repeat="hour in room.hours" value="{{hour}}" required>{{hour}} - {{hour + 2}}</option></select></td>
+				<td><input type="text" ng-maxlength=250 ng-model="room.aim" required></td>
+				<td><button class="btn btn-success" ng-click="bookRoom(room)">Zarezerwuj</button>
+			</tr>
+		</tbody>
 	</table>
+	</div>
 </div>

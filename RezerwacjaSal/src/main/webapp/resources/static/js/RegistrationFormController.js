@@ -1,6 +1,10 @@
 app.controller("RegistrationFormController", function($scope, $filter, User, $location)
 		{
 			$scope.userRole = false;
+			$scope.login = function()
+			{
+				$location.path("/login");
+			}
 			$scope.registration = function()
 			{
 				var newUser = {
@@ -18,6 +22,7 @@ app.controller("RegistrationFormController", function($scope, $filter, User, $lo
 				{
 					console.log("User saved");
 					$location.path("/login");
+					$scope.added = true;
 				}, function()
 				{
 					console.log("User could not be saved");

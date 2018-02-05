@@ -1,23 +1,41 @@
 <div ng-controller="ConfirmController">
-	<button ng-click="logout()">Wyloguj</button>
-	<p ng-show="accepted">Zaakceptowano</p>
-	<p ng-show="blocked">Odrzucono</p>
-	<table>
-		<tr>
-			<td>Id Sali</td>
-			<td>Id Uzytkownika</td>
-			<td>Od</td>
-			<td>Do</td>
-			<td>Cel</td>
-		</tr>
-		<tr ng-repeat="room in rooms">
-			<td>{{room.idRoom}}</td>
-			<td>{{room.idUser}}</td>
-			<td>{{room.busyFrom | date : "medium"}}</td>
-			<td>{{room.busyTo | date : "medium"}}</td>
-			<td>{{room.aim}}</td>
-			<td><button ng-click="accept(room.id, room.idUser)">Zaakceptowac</button></td>
-			<td><button ng-click="block(room.id, room.idUser)">Odrzuc</button></td>
-		</tr>
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+				<div class="navbar-brand">Internetowy System Rezerwacji Sal Konferencyjnych</div>
+			</div>
+			<div class="nav navbar-nav">
+				<button class="btn btn-default navbar-btn btn-sm" ng-click="mainPage()">Strona glowna</button>
+			</div>
+			<div class="nav navbar-nav navbar-right">
+				<button class="btn btn-danger navbar-btn btn-sm" ng-click="logout()">Wyloguj</button>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+	<p ng-show="accepted" class="alert alert-success">Zaakceptowano</p>
+	<p ng-show="blocked" class="alert alert-success">Odrzucono</p>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Id Sali</th>
+				<th>Id Uzytkownika</th>
+				<th>Od</th>
+				<th>Do</th>
+				<th>Cel</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="room in rooms">
+				<td>{{room.idRoom}}</td>
+				<td>{{room.idUser}}</td>
+				<td>{{room.busyFrom | date : "medium"}}</td>
+				<td>{{room.busyTo | date : "medium"}}</td>
+				<td>{{room.aim}}</td>
+				<td><button class="btn btn-success" ng-click="accept(room.id, room.idUser)">Zaakceptuj</button></td>
+				<td><button class="btn btn-danger" ng-click="block(room.id, room.idUser)">Odrzuc</button></td>
+			</tr>
+		</tbody>
 	</table>
+	</div>
 </div>
